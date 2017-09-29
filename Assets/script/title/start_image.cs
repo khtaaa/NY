@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class start_image : MonoBehaviour {
 	float start_time;
-	Vector3 minscale=new Vector3(1.5f,1.5f,1.5f);
-	Vector3 maxscale =new Vector3(2.5f,2.5f,2.5f);
+	Vector3 minscale=new Vector3(0.8f,0.8f,0.8f);
+	Vector3 maxscale =new Vector3(1.2f,1.2f,1.2f);
 	// Use this for initialization
 	void Start () {
 		start_time = 0;
