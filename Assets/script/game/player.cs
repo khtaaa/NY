@@ -5,6 +5,8 @@ using UnityEngine;
 public class player : MonoBehaviour {
 	public float speed = 5.0f;
 	public Sprite[] walk;
+	float AD;
+	float lastAD; 
 	int AnIn;
 	bool walkCheck;
 	// Use this for initialization
@@ -23,12 +25,15 @@ public class player : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().sprite = walk [AnIn];
 		}
 
-		if (Input.GetButton ("Fire1"))
+		if (Input.GetKey(KeyCode.A )|| Input.GetKey(KeyCode.D))
 		{
+			AD=Input.GetAxis("Horizontal");
+			if (AD != 0)
+				lastAD = AD;
 			walkCheck = true;
-			GetComponent<Rigidbody2D> ().velocity = new Vector2 (speed, GetComponent<Rigidbody2D> ().velocity.y);
+			GetComponent<Rigidbody2D> ().velocity = new Vector2 (speed*AD, GetComponent<Rigidbody2D> ().velocity.y);
 		}
-		else if(Input.GetButtonUp("Fire1")&&walkCheck)
+		else if((Input.GetKeyUp(KeyCode.A)||Input.GetKeyUp(KeyCode.D))&&walkCheck)
 		{
 			walkCheck = false;
 			GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
