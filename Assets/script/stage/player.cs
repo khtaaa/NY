@@ -5,6 +5,8 @@ using UnityEngine;
 public class player : MonoBehaviour {
 	public float speed = 5.0f;
 	public Sprite[] walk;
+	public GameObject[] attack;
+	public static int attack_LV=0;
 	float AD;
 	float lastAD; 
 	int AnIn;
@@ -24,7 +26,9 @@ public class player : MonoBehaviour {
 			}
 			GetComponent<SpriteRenderer> ().sprite = walk [AnIn];
 		}
+	}
 
+	void FixedUpdate(){
 		if (Input.GetKey(KeyCode.A )|| Input.GetKey(KeyCode.D))
 		{
 			AD=Input.GetAxis("Horizontal");
@@ -37,6 +41,12 @@ public class player : MonoBehaviour {
 		{
 			walkCheck = false;
 			GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			GameObject obj = Instantiate (attack [attack_LV]) as GameObject;
+			obj.transform.position = new Vector3 (transform.position.x + Mathf.Sign (lastAD)*1.5f, transform.position.y, transform.position.z);
+			obj.GetComponent<attack> ().AD = (int)Mathf.Sign (lastAD);
 		}
 	}
 }
