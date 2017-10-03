@@ -911,7 +911,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1370254171}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1816585796}
+        m_MethodName: OnClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1370254171
@@ -1262,6 +1273,7 @@ GameObject:
   - component: {fileID: 1816585793}
   - component: {fileID: 1816585792}
   - component: {fileID: 1816585795}
+  - component: {fileID: 1816585796}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1323,6 +1335,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 600ac6ec939d99a44b00f9d8b0e1da83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1816585796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1816585791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5593d3f6e655b8c40a30850b88412e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1886590250
@@ -1422,7 +1445,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2049049965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 896525529}
@@ -1430,8 +1453,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.0025000572, y: 0}
+  m_SizeDelta: {x: 9.995, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049049967
 MonoBehaviour:

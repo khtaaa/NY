@@ -15,4 +15,8 @@ public class delblock : MonoBehaviour {
 		blockbar.RA++;
 		Destroy (gameObject);
 	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		Invoke ("del",0.3f);
+	}
 }
