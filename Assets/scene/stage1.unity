@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 195157173}
   - component: {fileID: 195157172}
   - component: {fileID: 195157174}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: zimen2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 206849456}
   - component: {fileID: 206849455}
   - component: {fileID: 206849454}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -575,6 +575,9 @@ MonoBehaviour:
   line:
   - {fileID: 1234293864078046, guid: 8a61ae1c9f5bd7049adc379408ae6d86, type: 2}
   - {fileID: 1467092469225142, guid: f6e3ab7ade72f664a905f936204dd624, type: 2}
+  damy:
+  - {fileID: 1531939204022466, guid: af29a2647d41119458b30f24da46a5b0, type: 2}
+  - {fileID: 1795117201345078, guid: bde54a0060e887e419f4cf81c848da21, type: 2}
   lineN: 0
   lineL: 0.2
   lineW: 0.1
@@ -1220,7 +1223,7 @@ GameObject:
   - component: {fileID: 1761776477}
   - component: {fileID: 1761776476}
   - component: {fileID: 1761776475}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: zimen2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1319,7 +1322,7 @@ GameObject:
   - component: {fileID: 1978932374}
   - component: {fileID: 1978932373}
   - component: {fileID: 1978932372}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1505,7 +1508,7 @@ GameObject:
   - component: {fileID: 2006534038}
   - component: {fileID: 2006534037}
   - component: {fileID: 2006534036}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1621,7 +1624,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2006534035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0.1, z: -0.78125}
+  m_LocalPosition: {x: 0.7, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1978932376}
