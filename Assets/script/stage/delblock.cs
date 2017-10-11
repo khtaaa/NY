@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class delblock : MonoBehaviour {
 	public float deltime=5.0f;
-	// Use this for initialization
+	stats ST;
 	void Start () {
-		blockbar.RA--;
+		ST = GameObject.Find ("player").GetComponent<stats> ();
+		ST.linebar--;
 		Invoke ("del", deltime);
 	}
 
 	void del()
 	{
-		blockbar.RA++;
-		Destroy (gameObject);
+		this.gameObject.SetActive (false);
+		Invoke ("puls", deltime);
 	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		Invoke ("del",0.3f);
+	void puls()
+	{
+		ST.linebar++;
+		Destroy (gameObject);
 	}
 }

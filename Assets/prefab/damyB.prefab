@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4922244285781576}
   - component: {fileID: 212929679142262532}
-  - component: {fileID: 114891126525313038}
+  - component: {fileID: 114300392510944738}
   - component: {fileID: 50787484422493846}
   m_Layer: 0
   m_Name: damyB
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &114891126525313038
+--- !u!114 &114300392510944738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1795117201345078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5775df584adc9b448a557d4b0d84f228, type: 3}
+  m_Script: {fileID: 11500000, guid: dc0b0507a366e9e43b8063a55938f87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   deltime: 5
