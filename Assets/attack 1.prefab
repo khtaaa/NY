@@ -21,10 +21,11 @@ GameObject:
   - component: {fileID: 4852914152825400}
   - component: {fileID: 212305875154645614}
   - component: {fileID: 50209366457197356}
-  - component: {fileID: 114467464253489080}
+  - component: {fileID: 114886114516159274}
+  - component: {fileID: 58174366006643960}
   m_Layer: 0
   m_Name: attack 1
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +63,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &114467464253489080
+--- !u!58 &58174366006643960
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1190705051587202}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &114886114516159274
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,9 +86,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1190705051587202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c931b07fa4526cd40b544e1f74ad708d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ce4c0f5095d6bd4fb273e2be80167fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AD: 0
+  speed: 1
 --- !u!212 &212305875154645614
 SpriteRenderer:
   m_ObjectHideFlags: 1

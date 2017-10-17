@@ -102,4 +102,13 @@ public class player : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D col) {
 	}
 
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.CompareTag ("enemy")) {
+			if (stats.damage == false) {
+				stats.damage = true;
+				stats.HP -= stats.MAXHP / 10;
+			}
+		}
+	}
+
 }

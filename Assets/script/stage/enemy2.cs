@@ -20,7 +20,7 @@ public class enemy2 : MonoBehaviour {
 		Vector2 v2;
 		v2 = new Vector2 (player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);
 
-		if(Vector2.Distance(player.transform.position,transform.position)<10){
+		if(Vector2.Distance(player.transform.position,transform.position)<9){
 		attacktime += Time.deltaTime;
 		if (attacktime > maxtime) {
 			attacktime = 0;
