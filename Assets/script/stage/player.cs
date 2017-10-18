@@ -13,7 +13,7 @@ public class player : MonoBehaviour {
 	float FlashingTimer=0;
 	float maxFlashing=0.5f;
 	float invincibleTimer=0;
-	float maxinvincible=10;
+	float maxinvincible=3;
 	Renderer playerM;
 	stats stats;
 
@@ -82,7 +82,8 @@ public class player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D col) {
+	void OnCollisionStay2D(Collision2D col) 
+	{
 		//トラップに触れた時
 		if (stats.damage == false) {
 			if (col.collider.CompareTag ("trap")) {
@@ -99,7 +100,18 @@ public class player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D col) {
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.CompareTag ("movefloor")) {
+			transform.SetParent(col.transform);
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D col) 
+	{
+		if (col.gameObject.CompareTag ("movefloor")) {
+			transform.SetParent(null);
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {

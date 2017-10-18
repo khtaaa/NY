@@ -19,6 +19,7 @@ public class enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		RG.velocity = new Vector2 (ST.speed*direction, RG.velocity.y);
+
 		if (transform.position.x > spos.x + range) {
 			direction=-1;
 		}
@@ -26,6 +27,7 @@ public class enemy : MonoBehaviour {
 		if (transform.position.x < spos.x - range) {
 			direction = 1;
 		}
+
 	}
 
 	void OnCollisionStay2D(Collision2D col) {

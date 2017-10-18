@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy2 : MonoBehaviour {
-	float attacktime=0;
-	public float maxtime=600;
-	public GameObject attackobj;
-	GameObject player;
-	public float speed=5f;
+	float attacktime=0;//攻撃の時間
+	public float maxtime=5;//攻撃発動の時間
+	public GameObject attackobj;//攻撃オブジェ
+	GameObject player;//プレイヤー
+	public float speed=5f;//攻撃の移動速度
+	float distance=9;//距離
 
-	// Use this for initialization
 	void Start () {
-		attacktime = 0;
-		player = GameObject.Find ("player");
+		attacktime = maxtime/2;
+		player = GameObject.Find ("player");//プレイヤーを代入
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//プレイヤーの方向を計算
 		Vector2 v2;
 		v2 = new Vector2 (player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);
 
-		if(Vector2.Distance(player.transform.position,transform.position)<9){
+		//プレイヤーが一定距離に入ったら攻撃
+		if(Vector2.Distance(player.transform.position,transform.position)<distance){
 		attacktime += Time.deltaTime;
 		if (attacktime > maxtime) {
 			attacktime = 0;
