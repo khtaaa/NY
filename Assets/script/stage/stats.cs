@@ -9,6 +9,7 @@ public class stats : MonoBehaviour {
 	public float linebar=50;
 	public float MAXlinebar=50;
 	public float speed=5.0f;
-	public bool damage=false;
+	public bool invincible=false;
 	public bool walkCheck = false;
+	public bool gameover = false;
 }

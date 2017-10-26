@@ -15,91 +15,117 @@ public class player : MonoBehaviour {
 	Renderer playerM;//Renderer
 	stats ST;//ステータス
 
-
 	void Start () {
 		ST = GetComponent<stats> ();//ステータス獲得
-		RG = GetComponent<Rigidbody2D> ();
-		AnIn = 0;
-		ST.walkCheck = false;
-		ST.damage = false;
-		playerM = this.gameObject.GetComponent<Renderer> ();
+		RG = GetComponent<Rigidbody2D> ();//Rigidbody2D獲得
+		AnIn = 0;//アニメーション初期化
+		ST.walkCheck = false;//移動判定初期化
+		ST.invincible = false;//無敵初期化
+		playerM = this.gameObject.GetComponent<Renderer> ();//プレイヤーのレンダラー獲得
 	}
 
 	void Update () {
+		//移動判定
 		if (ST.walkCheck) {
-			AnIn++;
+			AnIn++;//アニメーションカウント
+
+			//アニメーション判定
 			if (AnIn >= walk.Length) {
-				AnIn = 0;
+				AnIn = 0;//アニメーションカウント初期化
 			}
-			GetComponent<SpriteRenderer> ().sprite = walk [AnIn];
+			GetComponent<SpriteRenderer> ().sprite = walk [AnIn];//アニメーション
 		}
 
 		//ダメージを受けたら点滅、無敵
-		if (ST.damage)
+		if (ST.invincible)
 		{
 			//点滅
-			FlashingTimer += Time.deltaTime;
-				if(FlashingTimer>maxFlashing)
-				{
-				playerM.enabled = !playerM.enabled;
-				FlashingTimer = 0;
-				}
+			FlashingTimer += Time.deltaTime;//点滅タイマー
+
+			//点滅タイマー判定
+			if (FlashingTimer > maxFlashing) {
+				playerM.enabled = !playerM.enabled;//表示と非表示入れ替え
+				FlashingTimer = 0;//点滅タイマー初期化
+			}
 
 			//無敵
-			invincibleTimer+=Time.deltaTime;
-			if (invincibleTimer > maxinvincible) 
-			{
-				invincibleTimer = 0;
-				ST.damage = false;
+			invincibleTimer+=Time.deltaTime;//無敵タイマー
 
-				playerM.enabled = true;
+			//無敵タイマー判定
+			if (invincibleTimer > maxinvincible) {
+				invincibleTimer = 0;//無敵タイマー初期化
+				ST.invincible = false;//無敵解除
+				playerM.enabled = true;//プレイヤー表示
 			}
 		}
 
-		if ((Input.GetKey(KeyCode.A ))||( Input.GetKey(KeyCode.D)))
-		{
+		//ゲームオーバー判定
+		if (ST.gameover == false) {
+			if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.D))) {
 
-			direction = Mathf.Sin (Input.GetAxis ("Horizontal"));//現在向いている方向と
+				direction = Mathf.Sin (Input.GetAxis ("Horizontal"));//現在向いている方向と
 
-			//最後に向いている方向を保存
-			if (direction != 0) {
-				last_direction = direction;//現在向いている方向を最後に向いている方向に代入
+				//最後に向いている方向を保存
+				if (direction != 0) {
+					last_direction = direction;//現在向いている方向を最後に向いている方向に代入
+				}
+
+				ST.walkCheck = true;//移動中
+
+			} else if ((Input.GetKeyUp (KeyCode.A) || Input.GetKeyUp (KeyCode.D))) {
+				ST.walkCheck = false;//移動していない
+				direction = 0;//どっちもむいていない
 			}
 
-			ST.walkCheck = true;
-
-		}
-		else if((Input.GetKeyUp(KeyCode.A)||Input.GetKeyUp(KeyCode.D)))
-		{
-			ST.walkCheck = false;
-			direction = 0;
-			//RG.velocity = Vector2.zero;
+		} else {
+			//ゲームオーバーのときに左クリックで
+			if (Input.GetMouseButtonDown (0)) {
+				Fade_Out.next = "title";
+				Fade_Out.fade_ok = true;
+			}
 		}
 	}
 
 	void FixedUpdate(){
-		RG.velocity = new Vector2 (ST.speed*direction, RG.velocity.y);
+		if (ST.gameover == false) {
+			RG.velocity = new Vector2 (ST.speed * direction, RG.velocity.y);
+		}
 
+	}
+
+	//ダメージ判定
+	void damagecheck()
+	{
+		//ダメージを受けてHPが無くなったらゲームオーバー
+		if ((ST.HP - ST.MAXHP / 10) <= 0) {
+			ST.gameover = true;
+		} else {
+			//無敵中じゃなければダメージを食らって無敵にする
+			if (ST.invincible == false) {
+				ST.HP -= ST.MAXHP / 10;//ダメージ
+				ST.invincible = true;//無敵
+			}
+		}
 	}
 
 	void OnCollisionStay2D(Collision2D col) 
 	{
-		
-		if (ST.damage == false) {
+		//エリア外に落下したらゲームオーバー
+		if (col.collider.CompareTag ("gameover")) {
+			ST.gameover = true;
+		}
+
 			//トラップに触れた時
-			if (col.collider.CompareTag ("trap")) {
-				ST.damage = true;
-				ST.HP -= ST.MAXHP / 10;
-			}
+		if (col.collider.CompareTag ("trap")) {
+			damagecheck ();
+		}
 
 			//敵に触れたとき
-			if (col.collider.CompareTag ("enemy")) {
-				RG.velocity = new Vector2 (10 * col.gameObject.GetComponent<enemy> ().direction, RG.velocity.y);
-				ST.damage = true;
-				ST.HP -= ST.MAXHP / 10;
-
-			}
+		if (col.collider.CompareTag ("enemy")) {
+			RG.velocity = new Vector2 (10 * col.gameObject.GetComponent<enemy> ().direction, RG.velocity.y);
+			damagecheck ();
 		}
+
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -118,10 +144,7 @@ public class player : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag ("enemy")) {
-			if (ST.damage == false) {
-				ST.damage = true;
-				ST.HP -= ST.MAXHP / 10;
-			}
+				damagecheck ();
 		}
 	}
 

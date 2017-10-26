@@ -7,6 +7,7 @@ TagManager:
   - enemy
   - trap
   - movefloor
+  - gameover
   layers:
   - Default
   - TransparentFX
