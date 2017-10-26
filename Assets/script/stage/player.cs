@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class player : MonoBehaviour {
-	public Sprite[] walk;
-	public GameObject[] attack;
-	Rigidbody2D RG;
-	public static int attack_LV=0;
-	float AD;
-	float lastAD; 
-	int AnIn;
-	float FlashingTimer=0;
-	float maxFlashing=0.5f;
-	float invincibleTimer=0;
-	float maxinvincible=3;
-	Renderer playerM;
-	stats stats;
+	public Sprite[] walk;//移動画像
+	Rigidbody2D RG;//Rigidbody2D
+	float direction;//現在入力してる方向
+	float last_direction; //最後に向いていた方向
+	int AnIn;//アニメーション用変数
+	float FlashingTimer=0;//点滅用タイマー
+	float maxFlashing=0.5f;//点滅間隔
+	float invincibleTimer=0;//無敵用タイマー
+	float maxinvincible=3;//無敵時間
+	Renderer playerM;//Renderer
+	stats ST;//ステータス
 
 
 	void Start () {
-		stats = GetComponent<stats> ();
+		ST = GetComponent<stats> ();//ステータス獲得
 		RG = GetComponent<Rigidbody2D> ();
 		AnIn = 0;
-		stats.walkCheck = false;
-		stats.damage = false;
+		ST.walkCheck = false;
+		ST.damage = false;
 		playerM = this.gameObject.GetComponent<Renderer> ();
 	}
 
 	void Update () {
-		if (stats.walkCheck) {
+		if (ST.walkCheck) {
 			AnIn++;
 			if (AnIn >= walk.Length) {
 				AnIn = 0;
@@ -37,7 +35,7 @@ public class player : MonoBehaviour {
 		}
 
 		//ダメージを受けたら点滅、無敵
-		if (stats.damage)
+		if (ST.damage)
 		{
 			//点滅
 			FlashingTimer += Time.deltaTime;
@@ -52,49 +50,53 @@ public class player : MonoBehaviour {
 			if (invincibleTimer > maxinvincible) 
 			{
 				invincibleTimer = 0;
-				stats.damage = false;
+				ST.damage = false;
 
 				playerM.enabled = true;
 			}
 		}
-	}
 
-	void FixedUpdate(){
 		if ((Input.GetKey(KeyCode.A ))||( Input.GetKey(KeyCode.D)))
 		{
-				AD = Input.GetAxis ("Horizontal");
-			if (AD != 0)
-				lastAD = AD;
-			stats.walkCheck = true;
-			RG.velocity = new Vector2 (stats.speed*AD, RG.velocity.y);
+
+			direction = Mathf.Sin (Input.GetAxis ("Horizontal"));//現在向いている方向と
+
+			//最後に向いている方向を保存
+			if (direction != 0) {
+				last_direction = direction;//現在向いている方向を最後に向いている方向に代入
+			}
+
+			ST.walkCheck = true;
+
 		}
 		else if((Input.GetKeyUp(KeyCode.A)||Input.GetKeyUp(KeyCode.D)))
 		{
-			stats.walkCheck = false;
-			RG.velocity = Vector2.zero;
+			ST.walkCheck = false;
+			direction = 0;
+			//RG.velocity = Vector2.zero;
 		}
+	}
 
+	void FixedUpdate(){
+		RG.velocity = new Vector2 (ST.speed*direction, RG.velocity.y);
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			GameObject obj = Instantiate (attack [attack_LV]) as GameObject;
-			obj.transform.position = new Vector3 (transform.position.x + Mathf.Sign (lastAD)*1.5f, transform.position.y, transform.position.z);
-			obj.GetComponent<attack> ().AD = (int)Mathf.Sign (lastAD);
-		}
 	}
 
 	void OnCollisionStay2D(Collision2D col) 
 	{
-		//トラップに触れた時
-		if (stats.damage == false) {
+		
+		if (ST.damage == false) {
+			//トラップに触れた時
 			if (col.collider.CompareTag ("trap")) {
-				stats.damage = true;
-				stats.HP -= stats.MAXHP / 10;
+				ST.damage = true;
+				ST.HP -= ST.MAXHP / 10;
 			}
 
+			//敵に触れたとき
 			if (col.collider.CompareTag ("enemy")) {
 				RG.velocity = new Vector2 (10 * col.gameObject.GetComponent<enemy> ().direction, RG.velocity.y);
-				stats.damage = true;
-				stats.HP -= stats.MAXHP / 10;
+				ST.damage = true;
+				ST.HP -= ST.MAXHP / 10;
 
 			}
 		}
@@ -116,9 +118,9 @@ public class player : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag ("enemy")) {
-			if (stats.damage == false) {
-				stats.damage = true;
-				stats.HP -= stats.MAXHP / 10;
+			if (ST.damage == false) {
+				ST.damage = true;
+				ST.HP -= ST.MAXHP / 10;
 			}
 		}
 	}
