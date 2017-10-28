@@ -12,11 +12,10 @@ public class nazoru : MonoBehaviour {
 	stats ST;
 
 	void Start () {
-		ST = GameObject.Find ("player").GetComponent<stats> ();
+		ST = GameObject.Find ("player").GetComponent<stats> ();//プレイヤーのステータスを獲得
 		lineN = 0;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 		//lineの種類変更
