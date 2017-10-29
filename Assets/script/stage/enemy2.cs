@@ -8,7 +8,7 @@ public class enemy2 : MonoBehaviour {
 	public GameObject attackobj;//攻撃オブジェ
 	GameObject player;//プレイヤー
 	public float speed=5f;//攻撃の移動速度
-	float distance=9;//距離
+	public float distance=9;//距離
 
 	void Start () {
 		attacktime = maxtime/2;

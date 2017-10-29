@@ -14,6 +14,7 @@ public class player : MonoBehaviour {
 	float maxinvincible=3;//無敵時間
 	Renderer playerM;//Renderer
 	stats ST;//ステータス
+	public GameObject gameover_text;//ゲームオーバーテキスト
 
 	void Start () {
 		ST = GetComponent<stats> ();//ステータス獲得
@@ -61,6 +62,8 @@ public class player : MonoBehaviour {
 
 		//ゲームオーバー判定
 		if (ST.gameover == false) {
+			gameover_text.transform.localPosition =new Vector3 (gameover_text.transform.localPosition.x, 10, gameover_text.transform.localPosition.z);
+
 			if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.D))) {
 
 				direction = Mathf.Sin (Input.GetAxis ("Horizontal"));//現在向いている方向と
@@ -78,6 +81,10 @@ public class player : MonoBehaviour {
 			}
 
 		} else {
+			if (gameover_text.transform.localPosition.y > 4) {
+				gameover_text.transform.localPosition += Vector3.down*0.05f;
+			}
+
 			//ゲームオーバーのときに左クリックで
 			if (Input.GetMouseButtonDown (0)) {
 				Fade_Out.next = "title";
