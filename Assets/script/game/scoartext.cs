@@ -5,7 +5,7 @@ using UnityEngine;
 public class scoartext : MonoBehaviour {
 
 	void Start () {
-		GetComponent<TextMesh> ().text = "scora:"+time_script.cleartime.ToString("000.00");
+		GetComponent<TextMesh> ().text = "Best record:"+time_script.cleartime.ToString("000.00");
 	}
 
 }

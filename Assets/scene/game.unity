@@ -478,9 +478,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 840672415}
-  m_Text: scoar;00.00
+  m_Text: Best record;000.00
   m_OffsetZ: 0
-  m_CharacterSize: 0.5
+  m_CharacterSize: 0.35
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
