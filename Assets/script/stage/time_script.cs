@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class time_script : MonoBehaviour {
-	public static float cleartime;
-	public static bool clearcheck;
-	public float nowtime;
+	public static float cleartime;//クリア時間
+	public static bool clearcheck;//クリアチェック
+	public float nowtime;//現在の時間
 
-	// Use this for initialization
 	void Start () {
-		clearcheck = false;
-		nowtime = 0;
+		clearcheck = false;//クリアチェック初期化
+		nowtime = 0;//時間初期化
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		nowtime += Time.deltaTime;
+		
+		nowtime += Time.deltaTime;//時間測定
+
+		//クリアがチェックされてとき起動
 		if (clearcheck) {
-			//cleartime = Mathf.Round(nowtime*100)/100;
-			cleartime=nowtime;
-			clearcheck = false;
+			//記録が前回より早ければ記録更新
+			if (cleartime > nowtime) {
+				cleartime = nowtime;
+				clearcheck = false;//クリアチェック初期化
+			}
 		}
 	}
 }

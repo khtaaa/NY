@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HPbar : MonoBehaviour {
-	Slider SL;
-	stats ST;
+	Slider SL;//シリンダー
+	player PL;//プレイヤー
 
 	void Start () {
-		ST = GameObject.Find ("player").GetComponent<stats> ();
-		SL = this.gameObject.GetComponent<Slider> ();
-		SL.maxValue = ST.MAXHP;
+		PL = GameObject.Find ("player").GetComponent<player> ();//プレイヤーのスクリプト獲得
+		SL = this.gameObject.GetComponent<Slider> ();//シリンダー獲得
+		SL.maxValue = PL.MAXHP;//シリンダーの最大値をMAXHPにする
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		SL.value = ST.HP;
+		SL.value = PL.HP;//シリンダーの現在の値をプレイヤーのHPにする
 	}
 }

@@ -3,43 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemy : MonoBehaviour {
-	Vector3 spos;
-	float range=5;
-	public int direction;
-	Rigidbody2D RG;
-	stats ST;
-	// Use this for initialization
-	void Start () {
-		spos = transform.position;
-		direction = 1;
-		RG = GetComponent<Rigidbody2D> ();
-		ST = GetComponent<stats> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		RG.velocity = new Vector2 (ST.speed*direction, RG.velocity.y);
+	Vector3 spos;//最初の座標
+	float range=5;//移動距離（片道）
+	int direction=1;//移動方向
+	Rigidbody2D RG;//リジットボディ
+	public float speed = 5.0f;//移動速度
 
+	void Start () {
+		spos = transform.position;//初期座標獲得
+		RG = GetComponent<Rigidbody2D> ();//リジットボディ獲得
+	}
+
+	void Update () {
+		//プラス座標に一定距離行ったらマイナス座標に方向を切り替える
 		if (transform.position.x > spos.x + range) {
 			direction=-1;
 		}
 
+		//マイナス座標に一定距離行ったらプラス座標に方向を切り替える
 		if (transform.position.x < spos.x - range) {
 			direction = 1;
 		}
 
 	}
 
-	void OnCollisionStay2D(Collision2D col) {
-		if (col.collider.CompareTag ("Player")) {
-			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		}
-	}
-
-	void OnCollisionExit2D(Collision2D col) {
-		if (col.collider.CompareTag ("Player")) {
-			RG.velocity = Vector2.zero;
-		}
+	void FixedUpdate(){
+		RG.velocity = new Vector2 (speed*direction, RG.velocity.y);//移動
 	}
 
 }

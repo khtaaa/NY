@@ -3,22 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class clear : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+	//プレイヤーが触れた時クリア
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag ("Player")) {
-			time_script.clearcheck = true;
-			Fade_Out.next = "title";
-			Fade_Out.fade_ok = true;
+			time_script.clearcheck = true;//クリアチェック動作
+			Fade_Out.next = "title";//シーンの移動先を指定
+			Fade_Out.fade_ok = true;//フェードアウト
 		}
 	}
 }

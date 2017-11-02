@@ -21,7 +21,7 @@ public class enemy2 : MonoBehaviour {
 		Vector2 v2;
 		v2 = new Vector2 (player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);
 
-		//プレイヤーが一定距離に入ったら攻撃
+		//プレイヤーが一定距離に入ったら一定間隔で攻撃(攻撃オブジェクトをプレイヤーに向かって生成後移動)
 		if(Vector2.Distance(player.transform.position,transform.position)<distance){
 		attacktime += Time.deltaTime;
 		if (attacktime > maxtime) {

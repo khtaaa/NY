@@ -9,10 +9,10 @@ public class nazoru : MonoBehaviour {
 	public float lineL=0.2f;//長さ
 	public float lineW = 0.1f;//幅
 	Vector3 Tpos;
-	stats ST;
+	player PL;
 
 	void Start () {
-		ST = GameObject.Find ("player").GetComponent<stats> ();//プレイヤーのステータスを獲得
+		PL = GameObject.Find ("player").GetComponent<player> ();//プレイヤーのステータスを獲得
 		lineN = 0;
 	}
 
@@ -42,7 +42,7 @@ public class nazoru : MonoBehaviour {
 			//スタート地点と最終地点の差がlineの長さより長かったらlineを生成
 			if ((Epos - Spos).magnitude > lineL)  {
 				//lineの容量が0以上ならline作成
-				if (ST.linebar > 0) {
+				if (PL.linebar > 0) {
 					RaycastHit2D[] hit = new RaycastHit2D[5];
 					GameObject obj = Instantiate (line [lineN], (Spos + Epos) / 2 + Vector3.back * 5f, transform.rotation) as GameObject;
 					obj.transform.right = (Epos - Spos).normalized;

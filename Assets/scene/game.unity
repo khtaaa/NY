@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 306360388}
   - component: {fileID: 306360387}
   m_Layer: 0
-  m_Name: kannbann
+  m_Name: score_board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 840672415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931530905e5ee7d4fbc73d34228ccbd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6eeefe7800099ac47be927081a22e8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!222 &840672418
@@ -772,8 +772,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1816585797}
-        m_MethodName: OnClickButton
+      - m_Target: {fileID: 1816585795}
+        m_MethodName: score
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1102,8 +1102,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1816585796}
-        m_MethodName: OnClickButton
+      - m_Target: {fileID: 1816585795}
+        m_MethodName: title
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1459,7 +1459,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1816585795}
-        m_MethodName: OnClickButton
+        m_MethodName: battle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1515,8 +1515,6 @@ GameObject:
   - component: {fileID: 1816585793}
   - component: {fileID: 1816585792}
   - component: {fileID: 1816585795}
-  - component: {fileID: 1816585796}
-  - component: {fileID: 1816585797}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1577,34 +1575,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1816585791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600ac6ec939d99a44b00f9d8b0e1da83, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bd2418efa9aec547890c8dc06053c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1816585796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1816585791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5593d3f6e655b8c40a30850b88412e46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1816585797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1816585791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8972621f7dfe533469e6b3e5eb62d2f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoracheck: 0
-  kannbann: {fileID: 306360386}
+  score_board: {fileID: 306360386}
   speed: 0.1
+  scorepos: -6
 --- !u!1 &1886590250
 GameObject:
   m_ObjectHideFlags: 0

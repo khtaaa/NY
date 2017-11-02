@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class blockbar : MonoBehaviour {
-	Slider SL;
-	stats ST;
-	// Use this for initialization
+	Slider SL;//シリンダー
+	player PL;//プレイヤー
+
 	void Start () {
-		ST = GameObject.Find ("player").GetComponent<stats> ();
-		SL = this.gameObject.GetComponent<Slider> ();
-		SL.maxValue = ST.MAXlinebar;
+		PL = GameObject.Find ("player").GetComponent<player> ();//プレイヤーのスクリプト獲得
+		SL = this.gameObject.GetComponent<Slider> ();//シリンダー獲得
+		SL.maxValue = PL.MAXlinebar;//シリンダーの最大値をMAXlinebarにする
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		SL.value = ST.linebar;
+		SL.value = PL.linebar;//シリンダーの現在の値をプレイヤーのlinebarにする
 	}
 }

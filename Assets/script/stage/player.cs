@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class player : MonoBehaviour {
+	public int HP=50;//体力
+	public int MAXHP=50;//最大体力
+	public float linebar=50;//線の量
+	public float MAXlinebar=50;//線の最大の量
+	public float speed=5.0f;//移動速度
+	public bool invincible=false;//無敵確認
+	public bool walkCheck = false;//移動確認
+	public bool gameover = false;//ゲームオーバー確認
 	public Sprite[] walk;//移動画像
 	Rigidbody2D RG;//Rigidbody2D
 	float direction;//現在入力してる方向
@@ -13,21 +21,21 @@ public class player : MonoBehaviour {
 	float invincibleTimer=0;//無敵用タイマー
 	float maxinvincible=3;//無敵時間
 	Renderer playerM;//Renderer
-	stats ST;//ステータス
+	//stats ST;//ステータス
 	public GameObject gameover_text;//ゲームオーバーテキスト
 
 	void Start () {
-		ST = GetComponent<stats> ();//ステータス獲得
+		//ST = GetComponent<stats> ();//ステータス獲得
 		RG = GetComponent<Rigidbody2D> ();//Rigidbody2D獲得
 		AnIn = 0;//アニメーション初期化
-		ST.walkCheck = false;//移動判定初期化
-		ST.invincible = false;//無敵初期化
+		walkCheck = false;//移動判定初期化
+		invincible = false;//無敵初期化
 		playerM = this.gameObject.GetComponent<Renderer> ();//プレイヤーのレンダラー獲得
 	}
 
 	void Update () {
 		//移動判定
-		if (ST.walkCheck) {
+		if (walkCheck) {
 			AnIn++;//アニメーションカウント
 
 			//アニメーション判定
@@ -38,7 +46,7 @@ public class player : MonoBehaviour {
 		}
 
 		//ダメージを受けたら点滅、無敵
-		if (ST.invincible)
+		if (invincible)
 		{
 			//点滅
 			FlashingTimer += Time.deltaTime;//点滅タイマー
@@ -55,13 +63,13 @@ public class player : MonoBehaviour {
 			//無敵タイマー判定
 			if (invincibleTimer > maxinvincible) {
 				invincibleTimer = 0;//無敵タイマー初期化
-				ST.invincible = false;//無敵解除
+				invincible = false;//無敵解除
 				playerM.enabled = true;//プレイヤー表示
 			}
 		}
 
 		//ゲームオーバー判定
-		if (ST.gameover == false) {
+		if (gameover == false) {
 			gameover_text.transform.localPosition =new Vector3 (gameover_text.transform.localPosition.x, 10, gameover_text.transform.localPosition.z);
 
 			if ((Input.GetKey (KeyCode.A)) || (Input.GetKey (KeyCode.D))) {
@@ -73,10 +81,10 @@ public class player : MonoBehaviour {
 					last_direction = direction;//現在向いている方向を最後に向いている方向に代入
 				}
 
-				ST.walkCheck = true;//移動中
+				walkCheck = true;//移動中
 
 			} else if ((Input.GetKeyUp (KeyCode.A) || Input.GetKeyUp (KeyCode.D))) {
-				ST.walkCheck = false;//移動していない
+				walkCheck = false;//移動していない
 				direction = 0;//どっちもむいていない
 			}
 
@@ -94,8 +102,8 @@ public class player : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if (ST.gameover == false) {
-			RG.velocity = new Vector2 (ST.speed * direction, RG.velocity.y);
+		if (gameover == false) {
+			RG.velocity = new Vector2 (speed * direction, RG.velocity.y);
 		}
 
 	}
@@ -104,13 +112,13 @@ public class player : MonoBehaviour {
 	void damagecheck()
 	{
 		//ダメージを受けてHPが無くなったらゲームオーバー
-		if ((ST.HP - ST.MAXHP / 10) <= 0) {
-			ST.gameover = true;
+		if ((HP - MAXHP / 10) <= 0) {
+			gameover = true;
 		} else {
 			//無敵中じゃなければダメージを食らって無敵にする
-			if (ST.invincible == false) {
-				ST.HP -= ST.MAXHP / 10;//ダメージ
-				ST.invincible = true;//無敵
+			if (invincible == false) {
+				HP -= MAXHP / 10;//ダメージ
+				invincible = true;//無敵
 			}
 		}
 	}
@@ -119,24 +127,25 @@ public class player : MonoBehaviour {
 	{
 		//エリア外に落下したらゲームオーバー
 		if (col.collider.CompareTag ("gameover")) {
-			ST.gameover = true;
+			gameover = true;
 		}
 
 			//トラップに触れた時
 		if (col.collider.CompareTag ("trap")) {
-			damagecheck ();
+			damagecheck ();//ダメージ確認
 		}
 
 			//敵に触れたとき
 		if (col.collider.CompareTag ("enemy")) {
-			RG.velocity = new Vector2 (10 * col.gameObject.GetComponent<enemy> ().direction, RG.velocity.y);
-			damagecheck ();
+			//RG.velocity = new Vector2 (10 * col.gameObject.GetComponent<enemy> ().direction, RG.velocity.y);
+			damagecheck ();//ダメージ確認
 		}
 
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+		//プレイヤーが動く床に乗った時プレイヤーを動く床の子オブジェクトにする
 		if (col.gameObject.CompareTag ("movefloor")) {
 			transform.SetParent(col.transform);
 		}
@@ -144,14 +153,16 @@ public class player : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D col) 
 	{
+		//プレイヤーが動く床から降りた時プレイヤーを動く床の子オブジェクトからはずす
 		if (col.gameObject.CompareTag ("movefloor")) {
 			transform.SetParent(null);
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
+		//敵の攻撃に触れた時
 		if (other.gameObject.CompareTag ("enemy")) {
-				damagecheck ();
+			damagecheck ();//ダメージ確認
 		}
 	}
 
