@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class time_script : MonoBehaviour {
-	public static float cleartime;//クリア時間
+	public static float cleartime=999.99f;//クリア時間
 	public static bool clearcheck;//クリアチェック
 	public float nowtime;//現在の時間
 
